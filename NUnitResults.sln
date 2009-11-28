@@ -1,6 +1,20 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitResults", "NUnitResults.csproj", "{C9E758A6-82AF-488B-AA99-CA2916D0E482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitResults", "src\NUnitResults\NUnitResults.csproj", "{C9E758A6-82AF-488B-AA99-CA2916D0E482}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D41429C3-1D46-4947-A047-74B4FCDE7D09}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.txt = README.txt
+		TestResult.xml = TestResult.xml
+		ToDo.txt = ToDo.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nunit-2.2.10", "nunit-2.2.10", "{0D2E53C8-7291-4751-A5B0-243C8509DDAA}"
+	ProjectSection(SolutionItems) = preProject
+		nunit-2.2.10\nunit.core.dll = nunit-2.2.10\nunit.core.dll
+		nunit-2.2.10\nunit.util.dll = nunit-2.2.10\nunit.util.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
