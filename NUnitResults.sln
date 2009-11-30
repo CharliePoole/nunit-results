@@ -13,8 +13,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nunit-2.2.10", "nunit-2.2.10", "{0D2E53C8-7291-4751-A5B0-243C8509DDAA}"
 	ProjectSection(SolutionItems) = preProject
 		nunit-2.2.10\nunit.core.dll = nunit-2.2.10\nunit.core.dll
+		nunit-2.2.10\nunit.framework.dll = nunit-2.2.10\nunit.framework.dll
 		nunit-2.2.10\nunit.util.dll = nunit-2.2.10\nunit.util.dll
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitResultsTests", "src\NUnitResultsTests\NUnitResultsTests.csproj", "{FED2549E-DE13-498B-A569-51AA33D0B654}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +29,10 @@ Global
 		{C9E758A6-82AF-488B-AA99-CA2916D0E482}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9E758A6-82AF-488B-AA99-CA2916D0E482}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9E758A6-82AF-488B-AA99-CA2916D0E482}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FED2549E-DE13-498B-A569-51AA33D0B654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FED2549E-DE13-498B-A569-51AA33D0B654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FED2549E-DE13-498B-A569-51AA33D0B654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FED2549E-DE13-498B-A569-51AA33D0B654}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
