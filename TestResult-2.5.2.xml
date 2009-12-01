@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="D:\Dev\NUnit\nunit-2.5\trunk\solutions\vs2008\NUnitTests.nunit" total="19" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2009-11-25" time="12:47:12">
+  <environment nunit-version="2.5.2.0" clr-version="4.0.21006.1" os-version="Microsoft Windows NT 5.1.2600 Service Pack 2" platform="Win32NT" cwd="D:\Dev\NUnit\nunit-2.5\trunk\solutions\vs2008" machine-name="FERRARI" user="Charlie" user-domain="FERRARI" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite name="D:\Dev\NUnit\nunit-2.5\trunk\solutions\vs2008\NUnitTests.nunit" executed="True" success="True" time="0.281" asserts="0">
+    <results>
+      <test-suite name="D:\Dev\NUnit\nunit-2.5\trunk\solutions\vs2008\bin\Debug\tests\nunit.core.tests.dll" executed="True" success="True" time="0.281" asserts="0">
+        <results>
+          <test-suite name="NUnit" executed="True" success="True" time="0.281" asserts="0">
+            <results>
+              <test-suite name="Core" executed="True" success="True" time="0.281" asserts="0">
+                <results>
+                  <test-suite name="Tests" executed="True" success="True" time="0.281" asserts="0">
+                    <results>
+                      <test-suite name="Generic" executed="True" success="True" time="0.281" asserts="0">
+                        <results>
+                          <test-suite name="DeduceTypeArgsFromArgs&lt;T1,T2&gt;" executed="True" success="True" time="0.047" asserts="0">
+                            <results>
+                              <test-suite name="DeduceTypeArgsFromArgs&lt;Double,Int32&gt;(100.0d,42)" executed="True" success="True" time="0.031" asserts="0">
+                                <categories>
+                                  <category name="Generics" />
+                                </categories>
+                                <results>
+                                  <test-suite name="TestMyArgTypes" executed="True" success="True" time="0.016" asserts="0">
+                                    <results>
+                                      <test-case name="NUnit.Core.Tests.Generic.DeduceTypeArgsFromArgs&lt;Double,Int32&gt;(100.0d,42).TestMyArgTypes(5,7)" executed="True" success="True" time="0.000" asserts="2" />
+                                    </results>
+                                  </test-suite>
+                                </results>
+                              </test-suite>
+                              <test-suite name="DeduceTypeArgsFromArgs&lt;Int32,Double&gt;(42,100.0d)" executed="True" success="True" time="0.016" asserts="0">
+                                <categories>
+                                  <category name="Generics" />
+                                </categories>
+                                <results>
+                                  <test-suite name="TestMyArgTypes" executed="True" success="True" time="0.016" asserts="0">
+                                    <results>
+                                      <test-case name="NUnit.Core.Tests.Generic.DeduceTypeArgsFromArgs&lt;Int32,Double&gt;(42,100.0d).TestMyArgTypes(5,7)" executed="True" success="True" time="0.000" asserts="2" />
+                                    </results>
+                                  </test-suite>
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite name="GenericFixtureSpecializedByDerivedClass" executed="True" success="True" time="0.000" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Core.Tests.Generic.GenericFixtureSpecializedByDerivedClass.SomeMethod" executed="True" success="True" time="0.000" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="SimpleGenericFixture&lt;TList&gt;" executed="True" success="True" time="0.063" asserts="0">
+                            <results>
+                              <test-suite name="SimpleGenericFixture&lt;ArrayList&gt;" executed="True" success="True" time="0.047" asserts="0">
+                                <categories>
+                                  <category name="Generics" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericFixture&lt;ArrayList&gt;.TestCollectionCount" executed="True" success="True" time="0.047" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="SimpleGenericFixture&lt;List&lt;Int32&gt;&gt;" executed="True" success="True" time="0.016" asserts="0">
+                                <categories>
+                                  <category name="Generics" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericFixture&lt;List&lt;Int32&gt;&gt;.TestCollectionCount" executed="True" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite name="SimpleGenericMethods" executed="True" success="True" time="0.031" asserts="0">
+                            <categories>
+                              <category name="Generics" />
+                            </categories>
+                            <results>
+                              <test-suite name="GenericTestMethodWithOneTypeParameter" executed="True" success="True" time="0.031" asserts="0">
+                                <results>
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithOneTypeParameter&lt;Int32&gt;(5,2,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithOneTypeParameter&lt;Double&gt;(5.0d,2.0d,&quot;ABC&quot;)" executed="True" success="True" time="0.016" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithOneTypeParameter&lt;Double&gt;(5.0d,2.0d,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithOneTypeParameter&lt;Double&gt;(5.0d,2.0d,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="GenericTestMethodWithTwoTypeParameters" executed="True" success="True" time="0.000" asserts="0">
+                                <results>
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithTwoTypeParameters&lt;Int32,Int32&gt;(5,2,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithTwoTypeParameters&lt;Double,Double&gt;(5.0d,2.0d,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithTwoTypeParameters&lt;Int32,Double&gt;(5,2.0d,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithTwoTypeParameters&lt;Double,Int64&gt;(5.0d,2L,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="GenericTestMethodWithTwoTypeParameters_Reversed" executed="True" success="True" time="0.000" asserts="0">
+                                <results>
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithTwoTypeParameters_Reversed&lt;Int64,Double&gt;(5.0d,2L,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithTwoTypeParameters_Reversed&lt;Double,Double&gt;(5.0d,2.0d,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithTwoTypeParameters_Reversed&lt;Double,Int32&gt;(5,2.0d,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                  <test-case name="NUnit.Core.Tests.Generic.SimpleGenericMethods.GenericTestMethodWithTwoTypeParameters_Reversed&lt;Int32,Int32&gt;(5,2,&quot;ABC&quot;)" executed="True" success="True" time="0.000" asserts="3" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite name="TypeParameterUsedWithTestMethod&lt;T&gt;" executed="True" success="True" time="0.047" asserts="0">
+                            <results>
+                              <test-suite name="TypeParameterUsedWithTestMethod&lt;Double&gt;" executed="True" success="True" time="0.016" asserts="0">
+                                <categories>
+                                  <category name="Generics" />
+                                </categories>
+                                <results>
+                                  <test-suite name="TestMyArgType" executed="True" success="True" time="0.016" asserts="0">
+                                    <results>
+                                      <test-case name="NUnit.Core.Tests.Generic.TypeParameterUsedWithTestMethod&lt;Double&gt;.TestMyArgType(1.23d)" executed="True" success="True" time="0.016" asserts="1" />
+                                      <test-case name="NUnit.Core.Tests.Generic.TypeParameterUsedWithTestMethod&lt;Double&gt;.TestMyArgType(5)" executed="True" success="True" time="0.000" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
