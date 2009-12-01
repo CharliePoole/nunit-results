@@ -158,7 +158,7 @@ namespace NUnit.Extras
 			return topLevelResult;
 		}
 
-		public TestResult FindProjectResult( string name )
+		public TestSuiteResult FindProjectResult( string name )
 		{
 			return FindProjectResult( name, topLevelResult );
 		}
@@ -208,7 +208,7 @@ namespace NUnit.Extras
 			return FindTestResult( className, projectResult );
 		}
 
-		private static TestResult FindProjectResult( string name, TestResult testResult )
+		private static TestSuiteResult FindProjectResult( string name, TestResult testResult )
 		{
 			if ( testResult == null ) return null;
 
@@ -223,7 +223,7 @@ namespace NUnit.Extras
 				case ".dll":
 				case ".exe":
 					if ( name.ToLower() == Path.GetFileNameWithoutExtension( resultName ) )
-						return testResult;
+						return suiteResult;
 					break;
 				case "":
 					break;
@@ -233,7 +233,7 @@ namespace NUnit.Extras
 						TestSuiteResult childSuiteResult = childResult as TestSuiteResult;
 						if ( childSuiteResult != null )
 						{
-							TestResult result = FindProjectResult( name, childSuiteResult );
+							TestSuiteResult result = FindProjectResult( name, childSuiteResult );
 							if ( result != null )
 								return result;
 						}
