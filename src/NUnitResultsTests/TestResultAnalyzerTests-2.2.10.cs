@@ -5,15 +5,15 @@ using NUnit.Framework;
 namespace NUnit.Extras.Tests
 {
     [TestFixture]
-    public class TestResultAnalyzerTests
+    public class TestResultAnalyzerTests_2_2_10
     {
         static readonly string resultFile = @"..\..\TestResult-2.2.10.xml";
-        
-        static readonly int PROJECT_COUNT = 9;
-        static readonly int FIXTURE_COUNT = 148;
-        static readonly int TEST_COUNT = 1194;
-        static readonly int FAILURE_COUNT = 0;
-        static readonly int NOTRUN_COUNT = 1;
+
+        static readonly int PROJECT_COUNT = 7;
+        static readonly int FIXTURE_COUNT = 98;
+        static readonly int TEST_COUNT = 776;
+        static readonly int FAILURE_COUNT = 1;
+        static readonly int NOTRUN_COUNT = 2;
 
         static TestResultLoader loader;
 
@@ -41,17 +41,17 @@ namespace NUnit.Extras.Tests
         [Test]
         public void AnalyzeSingleProject()
         {
-            TestSuiteResult result = (TestSuiteResult)loader.FindProjectResult("nunit.core.tests");
+            TestSuiteResult result = (TestSuiteResult)loader.FindProjectResult("nunit.framework.tests");
             TestResultAnalyzer analyzer = new TestResultAnalyzer(result);
 
             analyzer.FindFixtures(result);
             analyzer.Analyze();
 
-            Assert.AreEqual(52, analyzer.Children.Count);
+            Assert.AreEqual(51, analyzer.Children.Count);
 
-            Assert.AreEqual(371, analyzer.TestCount);
+            Assert.AreEqual(397, analyzer.TestCount);
             Assert.AreEqual(0, analyzer.FailureCount);
-            Assert.AreEqual(1, analyzer.NotRunCount);
+            Assert.AreEqual(2, analyzer.NotRunCount);
         }
 
         [Test]

@@ -100,7 +100,7 @@ namespace NUnit.Extras
 			if ( hasTestCases )
 				Children.Add( new TestResultAnalyzer( result ) );
 
-			if ( hasTestSuites )
+			else if ( hasTestSuites )
 				foreach( TestResult childResult in result.Results )
 					if ( childResult is TestSuiteResult )
 						FindFixtures( (TestSuiteResult)childResult );

@@ -6,9 +6,14 @@ using NUnit.Core;
 namespace NUnit.Extras.Tests
 {
     [TestFixture]
-    public class TestResultLoaderTests
+    public class TestResultLoaderTests_2_4_8
     {
-        static readonly string resultFile = @"..\..\TestResult-2.2.10.xml";
+        static readonly string resultFile = @"..\..\TestResult-2.4.8.xml";
+
+        static readonly int PROJECT_COUNT = 9;
+        static readonly int FIXTURE_COUNT = 159;
+        static readonly int TEST_COUNT = 1266;
+        
         static TestResultLoader loader;
 
         [TestFixtureSetUp]
@@ -23,16 +28,16 @@ namespace NUnit.Extras.Tests
             TestSuiteResult result = loader.TopLevelResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(resultFile, result.Name);
-            Assert.AreEqual(1194, CountTestCases(result));
-            Assert.AreEqual(148, CountTestFixtures(result));
+            Assert.AreEqual(TEST_COUNT, CountTestCases(result));
+            Assert.AreEqual(FIXTURE_COUNT, CountTestFixtures(result));
 
             Assert.AreEqual(1, result.Results.Count);
             result = (TestSuiteResult)result.Results[0];
-            Assert.AreEqual(@"D:\Dev\NUnit\nunit-2.5-branch\src\NUnitDevTests.nunit", result.Name);
-            Assert.AreEqual(9, result.Results.Count);
+            Assert.AreEqual(@"C:\Program Files\NUnit 2.4.8\bin\NUnitTests.nunit", result.Name);
+            Assert.AreEqual(PROJECT_COUNT, result.Results.Count);
 
             result = (TestSuiteResult)result.Results[1];
-            Assert.AreEqual(@"D:\Dev\NUnit\nunit-2.5-branch\src\NUnitCore\tests\bin\Debug\nunit.core.tests.dll", result.Name);
+            Assert.AreEqual(@"C:\Program Files\NUnit 2.4.8\bin\nunit.core.tests.dll", result.Name);
             Assert.AreEqual(1, result.Results.Count);
 
             result = (TestSuiteResult)result.Results[0];
@@ -45,9 +50,9 @@ namespace NUnit.Extras.Tests
 
             result = (TestSuiteResult)result.Results[0];
             Assert.AreEqual("Tests", result.Name);
-            Assert.AreEqual(52, result.Results.Count);
+            Assert.AreEqual(51, result.Results.Count);
 
-            result = (TestSuiteResult)result.Results[20];
+            result = (TestSuiteResult)result.Results[19];
             Assert.AreEqual("PlatformDetectionTests", result.Name);
             Assert.AreEqual(24, result.Results.Count);
         }
@@ -56,7 +61,7 @@ namespace NUnit.Extras.Tests
         public void CanListProjects()
         {
             IList projects = loader.ProjectResults;
-            Assert.AreEqual(9, projects.Count);
+            Assert.AreEqual(PROJECT_COUNT, projects.Count);
             TestSuiteResult result = (TestSuiteResult)projects[1];
             StringAssert.EndsWith("nunit.core.tests.dll", result.Name);
         }
