@@ -8,7 +8,7 @@ namespace NUnit.Extras.Tests
     [TestFixture]
     public class TestResultLoaderTests
     {
-        static readonly string resultFile = @"..\..\TestResult.xml";
+        static readonly string resultFile = @"..\..\TestResult-2.2.10.xml";
         static TestResultLoader loader;
 
         [TestFixtureSetUp]
