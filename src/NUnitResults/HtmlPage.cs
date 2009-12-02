@@ -60,38 +60,24 @@ namespace NUnit.Extras
 
 		private void WritePageHeading( string title )
 		{
-			string[] configs = { "Debug", "Test", "Release" };
-
 			BeginTable( "width=90% class=\"center\"" );
 			BeginRow();
 			
 			BeginCell( "navlinks" );
 
-			foreach( string thisConfig in configs )
-			{
-				if ( this.directory.EndsWith( thisConfig ) )
-				{
-					if ( this.name != "index.html" )
-					{
-						WriteLine( "<h3><a href=\"index.html\">Index</a></h3>" );
-					}
-
-					foreach( string config in configs )
-					{
-						if ( config == thisConfig )
-							WriteLine( "<h3>{0}</h3>", config );
-						else
-							WriteLine( "<h3><a href=\"..\\{0}\\{1}\">{0}</a></h3>", config, this.name );
-					}
-				}
-			}
+            if (this.name != "index.html")
+            {
+                WriteLine("<h3><a href=\"index.html\">Index</a></h3>");
+            }
 
 			EndCell();
 			
 			BeginCell( "title" );
 			WriteLine( "<h1>{0}</h1>", title.Replace( " ", "&nbsp;" ) );
-			WriteLine( "<h3>{0}</h3>", DateTime.Now.ToShortDateString() );
-			EndCell();
+
+            DateTime now = DateTime.Now;
+            WriteLine("<h3>{0}</h3>", now.ToString("yyyy-MM-dd HH:mm:ss"));
+            EndCell();
 			
 			WriteEmptyCell( "noborder" );
 	
