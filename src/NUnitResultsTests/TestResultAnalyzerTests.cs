@@ -89,11 +89,11 @@ namespace NUnit.Extras.Tests
                 analyzer.FindFixtures(result);
                 analyzer.Analyze();
 
-                Assert.AreEqual(project.FixtureCount, analyzer.Children.Count);
+                Assert.AreEqual(project.FixtureCount, analyzer.Children.Count, project.Name);
 
-                Assert.AreEqual(project.TestCount, analyzer.TestCount);
-                Assert.AreEqual(project.FailureCount, analyzer.FailureCount);
-                Assert.AreEqual(project.NotRunCount, analyzer.NotRunCount);
+                Assert.AreEqual(project.TestCount, analyzer.TestCount, project.Name);
+                Assert.AreEqual(project.FailureCount, analyzer.FailureCount, project.Name);
+                Assert.AreEqual(project.NotRunCount, analyzer.NotRunCount, project.Name);
             }
         }
     }
@@ -113,6 +113,15 @@ namespace NUnit.Extras.Tests
         protected override ExpectedTestData GetExpectedTestData()
         {
             return ExpectedTestData.NUnit_2_4_8;
+        }
+    }
+
+    [TestFixture]
+    public class TestResultAnalyzerTest_2_5_2 : TestResultAnalyzerTest
+    {
+        protected override ExpectedTestData GetExpectedTestData()
+        {
+            return ExpectedTestData.NUnit_2_5_2;
         }
     }
 }

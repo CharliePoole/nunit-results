@@ -113,7 +113,7 @@ namespace NUnit.Extras.Tests
             @"..\..\TestResult-2.5.2.xml",
             new ProjectInfo[] {
                 new ProjectInfo("nunit.framework.tests", 172, 1322, 0, 0),
-                new ProjectInfo("nunit.core.tests", 81, 658, 0, 2),
+                new ProjectInfo("nunit.core.tests", 81, 658, 7, 2),
                 new ProjectInfo("nunit.util.tests", 33, 287, 0, 0),
                 new ProjectInfo("nunit.mocks.tests", 2, 46, 0, 0),
                 new ProjectInfo("nunit-console.tests", 3, 36, 0, 0),
