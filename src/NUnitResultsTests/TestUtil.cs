@@ -52,7 +52,7 @@ namespace NUnit.Extras.Tests
         public static bool IsParameterizedTestMethod(TestSuiteResult result)
         {
             foreach(TestResult child in result.Results)
-                if ( child.Name.EndsWith(")"))
+                if ( child is TestCaseResult && child.Name.EndsWith(")"))
                     return true;
 
             return false;

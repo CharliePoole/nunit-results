@@ -96,8 +96,8 @@ namespace NUnit.Extras.Tests
             "NUnit.Core.Tests.PlatformDetectionTests,nunit.framework.tests" );
 
         public static ExpectedTestData NUnit_2_4_8 = new ExpectedTestData(
-        @"..\..\TestResult-2.4.8.xml",
-        new ProjectInfo[] {
+            @"..\..\TestResult-2.4.8.xml",
+            new ProjectInfo[] {
                 new ProjectInfo("nunit.framework.tests", 45, 426, 0, 0),
                 new ProjectInfo("nunit.core.tests", 51, 374, 0, 2),
                 new ProjectInfo("nunit.util.tests", 30, 256, 0, 0),
@@ -107,6 +107,20 @@ namespace NUnit.Extras.Tests
                 new ProjectInfo("nunit.uikit.tests", 10, 40, 0, 0),
                 new ProjectInfo("nunit-gui.tests", 3, 15, 0, 0),
                 new ProjectInfo("nunit.fixtures.tests", 2, 6, 0, 0) },
-        "NUnit.Core.Tests.PlatformDetectionTests,nunit.core.tests" );
+            "NUnit.Core.Tests.PlatformDetectionTests,nunit.core.tests");
+
+        public static ExpectedTestData NUnit_2_5_2 = new ExpectedTestData(
+            @"..\..\TestResult-2.5.2.xml",
+            new ProjectInfo[] {
+                new ProjectInfo("nunit.framework.tests", 172, 1322, 0, 0),
+                new ProjectInfo("nunit.core.tests", 81, 658, 0, 2),
+                new ProjectInfo("nunit.util.tests", 33, 287, 0, 0),
+                new ProjectInfo("nunit.mocks.tests", 2, 46, 0, 0),
+                new ProjectInfo("nunit-console.tests", 3, 36, 0, 0),
+                new ProjectInfo("nunit.uiexception.tests", 31, 207, 0, 0),
+                new ProjectInfo("nunit.uikit.tests", 11, 50, 0, 0),
+                new ProjectInfo("nunit-gui.tests", 3, 15, 0, 0),
+                new ProjectInfo("nunit.fixtures.tests", 2, 6, 0, 0) },
+            "NUnit.Core.Tests.PlatformDetectionTests,nunit.core.tests");
     }
 }

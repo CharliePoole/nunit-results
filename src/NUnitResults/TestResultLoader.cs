@@ -275,26 +275,29 @@ namespace NUnit.Extras
 
 			XmlNode resultsNode = xmlNode.SelectSingleNode( "results" );
 
-			foreach( XmlNode childNode in resultsNode.ChildNodes )
-			{
-				switch( childNode.Name )
-				{
-					case "test-suite":
-						TestSuiteResult childResult = LoadSuite( childNode );
-						if ( childResult.Name != result.Name )
-							result.Results.Add( childResult );
-						else
-							foreach ( TestResult grandChildResult in childResult.Results )
-								result.Results.Add( grandChildResult );
-						break;
-					case "test-case":
-						TestCaseResult testCaseResult =  LoadTestCase( suiteName, childNode );
-						result.Results.Add( testCaseResult );
-						break;
-					default:
-						break;
-				}
-			}
+            if (resultsNode != null)
+            {
+                foreach (XmlNode childNode in resultsNode.ChildNodes)
+                {
+                    switch (childNode.Name)
+                    {
+                        case "test-suite":
+                            TestSuiteResult childResult = LoadSuite(childNode);
+                            if (childResult.Name != result.Name)
+                                result.Results.Add(childResult);
+                            else
+                                foreach (TestResult grandChildResult in childResult.Results)
+                                    result.Results.Add(grandChildResult);
+                            break;
+                        case "test-case":
+                            TestCaseResult testCaseResult = LoadTestCase(suiteName, childNode);
+                            result.Results.Add(testCaseResult);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
 			
 			//result.IsSuccess = GetSuccess( xmlNode );
 			result.Time = GetTime( xmlNode );

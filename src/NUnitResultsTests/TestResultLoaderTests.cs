@@ -41,8 +41,6 @@ namespace NUnit.Extras.Tests
             TestSuiteResult result = loader.TopLevelResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(ResultFile, result.Name);
-            Assert.AreEqual(TestCount, TestUtil.CountTestCases(result));
-            Assert.AreEqual(FixtureCount, TestUtil.CountTestFixtures(result));
 
             Assert.AreEqual(1, result.Results.Count);
             result = (TestSuiteResult)result.Results[0];
@@ -50,7 +48,15 @@ namespace NUnit.Extras.Tests
             Assert.AreEqual(Projects.Length, result.Results.Count);
 
             for (int i = 0; i < Projects.Length; i++)
-                StringAssert.EndsWith(Projects[i].Name + ".dll", ((TestResult)result.Results[i]).Name);
+            {
+                TestSuiteResult projectResult = (TestSuiteResult)result.Results[i];
+                StringAssert.EndsWith(Projects[i].Name + ".dll", projectResult.Name);
+                Assert.AreEqual(Projects[i].TestCount, TestUtil.CountTestCases(projectResult), projectResult.Name);
+                Assert.AreEqual(Projects[i].FixtureCount, TestUtil.CountTestFixtures(projectResult), projectResult.Name);
+            }
+
+            Assert.AreEqual(TestCount, TestUtil.CountTestCases(result));
+            Assert.AreEqual(FixtureCount, TestUtil.CountTestFixtures(result));
         }
 
         [Test]
@@ -127,6 +133,15 @@ namespace NUnit.Extras.Tests
         protected override ExpectedTestData GetExpectedTestData()
         {
             return ExpectedTestData.NUnit_2_4_8;
+        }
+    }
+
+    [TestFixture]
+    public class TestResultLoaderTest_2_5_2 : TestResultLoaderTest
+    {
+        protected override ExpectedTestData GetExpectedTestData()
+        {
+            return ExpectedTestData.NUnit_2_5_2;
         }
     }
 }

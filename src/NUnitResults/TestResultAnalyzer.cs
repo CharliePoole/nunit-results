@@ -101,11 +101,11 @@ namespace NUnit.Extras
 
 			if ( hasTestCases )
 				Children.Add( new TestResultAnalyzer( result ) );
-
 			else if ( hasTestSuites )
 				foreach( TestResult childResult in result.Results )
 					if ( childResult is TestSuiteResult )
 						FindFixtures( (TestSuiteResult)childResult );
+           
 		}
 
         private bool IsParameterizedTestMethod(TestSuiteResult result)
