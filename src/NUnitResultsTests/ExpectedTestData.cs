@@ -102,7 +102,7 @@ namespace NUnit.Extras.Tests
                 new ProjectInfo("nunit.core.tests", 51, 374, 0, 2),
                 new ProjectInfo("nunit.util.tests", 30, 256, 0, 0),
                 new ProjectInfo("nunit.mocks.tests", 2, 45, 0, 0),
-                new ProjectInfo("nunit.extensions.tests", 13, 68, 0, 0),
+                new ProjectInfo("nunit.extensions.tests", 9, 68, 0, 0),
                 new ProjectInfo("nunit-console.tests", 3, 36, 0, 0),
                 new ProjectInfo("nunit.uikit.tests", 10, 40, 0, 0),
                 new ProjectInfo("nunit-gui.tests", 3, 15, 0, 0),

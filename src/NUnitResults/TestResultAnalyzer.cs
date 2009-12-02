@@ -91,7 +91,9 @@ namespace NUnit.Extras
 
 			foreach( TestResult childResult in result.Results )
 			{
-				if( childResult is TestCaseResult )
+                TestSuiteResult childSuite = childResult as TestSuiteResult;
+
+				if ( childSuite == null || IsParameterizedTestMethod(childSuite) )
 					hasTestCases = true;
 				else
 					hasTestSuites = true;
@@ -105,6 +107,15 @@ namespace NUnit.Extras
 					if ( childResult is TestSuiteResult )
 						FindFixtures( (TestSuiteResult)childResult );
 		}
+
+        private bool IsParameterizedTestMethod(TestSuiteResult result)
+        {
+            foreach (TestResult child in result.Results)
+                if ( child.Name.EndsWith(")") )
+                    return true;
+
+            return false;
+        }
 
 		#endregion
 
