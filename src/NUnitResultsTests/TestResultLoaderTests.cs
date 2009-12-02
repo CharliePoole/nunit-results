@@ -7,9 +7,9 @@ namespace NUnit.Extras.Tests
 {
     public abstract class TestResultLoaderTest
     {
-        protected string ResultFile="x";
+        protected string ResultFile;
 
-        protected string[] Projects;
+        protected ProjectInfo[] Projects;
         protected int FixtureCount;
         protected int TestCount;
         protected string FixtureCheck;
@@ -50,7 +50,7 @@ namespace NUnit.Extras.Tests
             Assert.AreEqual(Projects.Length, result.Results.Count);
 
             for (int i = 0; i < Projects.Length; i++)
-                StringAssert.EndsWith(Projects[i] + ".dll", ((TestResult)result.Results[i]).Name);
+                StringAssert.EndsWith(Projects[i].Name + ".dll", ((TestResult)result.Results[i]).Name);
         }
 
         [Test]
@@ -76,17 +76,17 @@ namespace NUnit.Extras.Tests
             IList projects = loader.ProjectResults;
             Assert.AreEqual(Projects.Length, projects.Count);
             for (int i = 0; i < Projects.Length; i++)
-                StringAssert.EndsWith(Projects[i] + ".dll", ((TestResult)projects[i]).Name);
+                StringAssert.EndsWith(Projects[i].Name + ".dll", ((TestResult)projects[i]).Name);
         }
 
         [Test]
         public void CanFindProjects()
         {
-            foreach (string project in Projects)
+            foreach (ProjectInfo project in Projects)
             {
-                TestResult result = loader.FindProjectResult(project);
-                Assert.IsNotNull(result, "Unable to find project " + project);
-                StringAssert.EndsWith(project + ".dll", result.Name);
+                TestResult result = loader.FindProjectResult(project.Name);
+                Assert.IsNotNull(result, "Unable to find project " + project.Name);
+                StringAssert.EndsWith(project.Name + ".dll", result.Name);
             }
         }
 

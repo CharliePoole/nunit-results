@@ -1,6 +1,6 @@
-TestResults
 obj
 bin
 *.user
 *.suo
 Thumbs.db
+TestResults-*
