@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NUnit.Extras.Tests</RootNamespace>
-    <AssemblyName>NUnitResultsTests</AssemblyName>
+    <AssemblyName>nunit-results.tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,9 +48,9 @@
     <Compile Include="TestUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NUnitResults\NUnitResults.csproj">
+    <ProjectReference Include="..\NUnitResults\nunit-results.csproj">
       <Project>{C9E758A6-82AF-488B-AA99-CA2916D0E482}</Project>
-      <Name>NUnitResults</Name>
+      <Name>nunit-results</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

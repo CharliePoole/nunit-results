@@ -1,0 +1,25 @@
+NUnitResults 1.1 - December 2, 2009
+
+* Name of the application is changed from NUnitResults to NUnit-Results.
+  The executable is nunit-results.exe in keeping with the naming of
+  othe NUnit-related applications.
+
+* Parameterized and/or generic test fixtures are now recognized 
+  and displayed correctly.
+
+* Parameterized tests are no longer counted twice in reports.
+
+* Fixtures containing only parameterized tests are correctly
+  recognized and the contained method suites no longer appear 
+  as fixtures. (See the README for a limitation.)
+  
+* FileNotFoundException no longer displays a stack trace.
+
+* HTML Reports now contain the time of the test run.
+
+* Tests are provided using result files created by NUNit
+  2.2.10, 2.4.8 and 2.5.2.
+  
+NUnitResults 1.0 - January 18, 2008
+
+* Initial Release

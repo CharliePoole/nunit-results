@@ -1,3 +1,4 @@
-Catch "File not found" error and display message
+Change program name to nunit-results
+Add option to send output to different directories
 
  
