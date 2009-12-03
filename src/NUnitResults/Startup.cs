@@ -20,41 +20,45 @@ namespace NUnit.Extras
 			string testResultPath;
 			string outputDirectory;
 
-			try
-			{
-				if ( args.Length < 1 )
-				{
-					Error( "No arguments provided" );
-					return;
-				}
+            try
+            {
+                if (args.Length < 1)
+                {
+                    Error("No arguments provided");
+                    return;
+                }
 
-				if ( args.Length > 2 )
-				{
-					Error( "Too many arguments" );
-					return;
-				}
+                if (args.Length > 2)
+                {
+                    Error("Too many arguments");
+                    return;
+                }
 
-				if ( args[0] == "?" || args[0] == "/?" )
-				{
-					Usage();
-					return;
-				}
+                if (args[0] == "?" || args[0] == "/?")
+                {
+                    Usage();
+                    return;
+                }
 
-				testResultPath = args.Length > 0 ? args[0] : "TestResult.xml";
-				outputDirectory = args.Length > 1 ? args[1] : "TestResults";
+                testResultPath = args.Length > 0 ? args[0] : "TestResult.xml";
+                outputDirectory = args.Length > 1 ? args[1] : "TestResults";
 
-				TestResultReport report= new TestResultReport( testResultPath, outputDirectory );
-					
-				report.DoReport();
-			}
-			catch( ApplicationException exception )
-			{
-				Error( exception.Message );
-			}
-			catch(  Exception exception )
-			{
-				Error( exception.ToString() );
-			}
+                TestResultReport report = new TestResultReport(testResultPath, outputDirectory);
+
+                report.DoReport();
+            }
+            catch (FileNotFoundException exception)
+            {
+                Error(exception.Message);
+            }
+            catch (ApplicationException exception)
+            {
+                Error(exception.Message);
+            }
+            catch (Exception exception)
+            {
+                Error(exception.ToString());
+            }
 		}
 
 		/// <summary>
