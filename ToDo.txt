@@ -1,4 +1,4 @@
-Change program name to nunit-results
+Add NAnt build
 Add option to send output to different directories
-
+Update Wiki
  
