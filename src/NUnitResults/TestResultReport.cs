@@ -228,12 +228,14 @@ namespace NUnit.Extras
 					StringBuilder sb = new StringBuilder( TruncateTestName(result.Name) );
 					sb.Append( "<br>" );
 					sb.Append( HttpUtility.HtmlEncode( result.Message ) );
-					string[] stack = result.StackTrace.Split( new char[] { '\n' } );
-					foreach( string line in stack )
-					{
-						sb.Append( "<p>" );
-						sb.Append( HttpUtility.HtmlEncode( line ) );
-					}
+                    if (result.StackTrace != null && result.StackTrace != string.Empty)
+                    {
+                        string[] stack = result.StackTrace.Split(new char[] { '\n' });
+                        sb.Append("<pre>");
+                        foreach (string line in stack)
+                            sb.Append(HttpUtility.HtmlEncode(line));
+                        sb.Append("</pre>");
+                    }
 					page.WriteCell( sb.ToString(), "text" );
 					page.EndRow();
 				}
