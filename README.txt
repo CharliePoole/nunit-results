@@ -1,6 +1,6 @@
-NUnitResults 1.1 - December 4, 2009
+NUnit-Results 1.1 - December 4, 2009
 
-NUnitResults is a console application used to produce HTML reports from the 
+NUnit-Results is a console application used to produce HTML reports from the 
 output of NUnit test runs. It is part of the NUnit.Extras suite.
 
 The program was based on an earlier reporting program created for a client
@@ -9,7 +9,7 @@ create the first public release in January, 2008.
 
 COPYRIGHT AND LICENSE
 
-NUnitResults is CopyRight © 2008-2009, Charlie Poole
+NUnit-Results is CopyRight © 2008-2009, Charlie Poole
 and is licensed under the Open Software License version 3.0
 
 A copy of the license is distributed with the program in the file LICENSE.txt
@@ -17,7 +17,7 @@ and is also available at http://www.opensource.org/licenses/osl-3.0.
 
 INSTALLATION
 
-Copy the NUnitResults.exe file together with the included nunit.core.dll and 
+Copy the NUnit-Results.exe file together with the included nunit.core.dll and 
 nunit.util.dll into any convenient directory. Note that the NUnit assemblies
 are part of the NUnit 2.2.10 distribution, and are required for the program 
 to execute correctly.
@@ -26,7 +26,7 @@ USAGE
 
 Execute from the command line as follows:
 
-	NUnitResults [ <result-file> [ <output-dir> ] ]
+	NUnit-Results [ <result-file> [ <output-dir> ] ]
 			
 Where <result-file> is the path to a test result xml file produced by NUnit 
 and <output-dir> is the directory to receive the generated report files. If 
