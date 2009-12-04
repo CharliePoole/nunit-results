@@ -1,3 +1,9 @@
+// *****************************************************
+// Copyright 2008-2009, Charlie Poole
+//
+// Licensed under the Open Software License version 3.0
+// *****************************************************
+
 using System;
 using System.Collections;
 using NUnit.Framework;

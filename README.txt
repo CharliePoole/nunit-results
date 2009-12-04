@@ -1,4 +1,4 @@
-NUnitResults 1.1 - December 2, 2009
+NUnitResults 1.1 - December 4, 2009
 
 NUnitResults is a console application used to produce HTML reports from the 
 output of NUnit test runs. It is part of the NUnit.Extras suite.
@@ -9,7 +9,7 @@ create the first public release in January, 2008.
 
 COPYRIGHT AND LICENSE
 
-NUnitResults is CopyRight © 2008, Charlie Poole
+NUnitResults is CopyRight © 2008-2009, Charlie Poole
 and is licensed under the Open Software License version 3.0
 
 A copy of the license is distributed with the program in the file LICENSE.txt
@@ -43,7 +43,7 @@ RELEASE HISTORY
 
 January, 2008  - NUnitResults 1.0 released on the NUnit Site. 
 November, 2009 - Moved to Launchpad, NUnitResults 1.0 re-released.
-December, 2009 - NUnitResults 1.1
+December, 2009 - Changed name to NUnit-Results for 1.1 release
 
 The file CHANGES.txt lists specific changes for each release.
 

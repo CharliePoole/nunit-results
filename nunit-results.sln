@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TestResult-2.2.10.xml = TestResult-2.2.10.xml
 		TestResult-2.4.8.xml = TestResult-2.4.8.xml
 		TestResult-2.5.2.xml = TestResult-2.5.2.xml
-		ToDo.txt = ToDo.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nunit-2.2.10", "nunit-2.2.10", "{0D2E53C8-7291-4751-A5B0-243C8509DDAA}"

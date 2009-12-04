@@ -1,5 +1,5 @@
 // *****************************************************
-// Copyright 2008, Charlie Poole
+// Copyright 2008-2009, Charlie Poole
 //
 // Licensed under the Open Software License version 3.0
 // *****************************************************

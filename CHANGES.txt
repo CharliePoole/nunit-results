@@ -1,4 +1,4 @@
-NUnitResults 1.1 - December 2, 2009
+NUnitResults 1.1 - December 4, 2009
 
 * Name of the application is changed from NUnitResults to NUnit-Results.
   The executable is nunit-results.exe in keeping with the naming of
