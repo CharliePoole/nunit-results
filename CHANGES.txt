@@ -9,6 +9,9 @@ NUnitResults 1.1 - December 2, 2009
 
 * Parameterized tests are no longer counted twice in reports.
 
+* Paramterized test cases are now displayed correctly in the 
+  Failures and Not Run tables.
+
 * Fixtures containing only parameterized tests are correctly
   recognized and the contained method suites no longer appear 
   as fixtures. (See the README for a limitation.)

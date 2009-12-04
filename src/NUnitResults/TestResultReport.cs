@@ -225,7 +225,7 @@ namespace NUnit.Extras
 				{
 					page.BeginRow();
 					page.WriteCell( ++count );
-					StringBuilder sb = new StringBuilder( result.Name );
+					StringBuilder sb = new StringBuilder( TruncateTestName(result.Name) );
 					sb.Append( "<br>" );
 					sb.Append( HttpUtility.HtmlEncode( result.Message ) );
 					string[] stack = result.StackTrace.Split( new char[] { '\n' } );
@@ -256,7 +256,7 @@ namespace NUnit.Extras
 				{
 					page.BeginRow();
 					page.WriteCell( ++count );
-					page.WriteCell( result.Name + "<br>" + HttpUtility.HtmlEncode( result.Message ), "text" );
+					page.WriteCell( TruncateTestName(result.Name) + "<br>" + HttpUtility.HtmlEncode( result.Message ), "text" );
 					page.EndRow();
 				}
 			}
@@ -264,7 +264,53 @@ namespace NUnit.Extras
 			page.EndTable();
 		}
 
-		private void WriteMissingProjectsTable( HtmlPage page, ArrayList missingProjects )
+        private string TruncateTestName(string testName)
+        {
+            int lpar = -1;
+
+            if ( testName.EndsWith(")"))
+            {
+                int nest = 1;
+                int pos = testName.Length - 2;
+
+                while (nest > 0 && pos >= 0)
+                {
+                    char c = testName[pos--];
+                    switch (c)
+                    { 
+                        case ')':
+                            nest++;
+                            break;
+                        case '(':
+                            nest--;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                if (nest == 0)
+                    lpar = pos + 1;
+            }
+
+            //int lpar = testName.IndexOf('(');
+
+            int dot = lpar < 0
+                ? testName.LastIndexOf('.')
+                : testName.LastIndexOf('.', lpar - 1, lpar);
+
+            if ( dot > 0 )
+            {
+                int dot2 = testName.LastIndexOf('.', dot - 1, dot);
+                if ( dot2 >= 0 ) dot = dot2;
+            }
+
+            if (dot >= 0) testName = testName.Substring(dot + 1);
+
+            return testName;
+        }
+
+        private void WriteMissingProjectsTable(HtmlPage page, ArrayList missingProjects)
 		{
 			page.BeginTable();
 			
