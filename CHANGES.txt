@@ -11,7 +11,10 @@ NUnitResults 1.1 - December 4, 2009
 
 * Paramterized test cases are now displayed correctly in the 
   Failures and Not Run tables.
-
+  
+* Stack traces are displayed using <pre> so that they lay out
+  in the same way as when displayed by .NET.
+  
 * Fixtures containing only parameterized tests are correctly
   recognized and the contained method suites no longer appear 
   as fixtures. (See the README for a limitation.)
