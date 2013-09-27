@@ -9,7 +9,7 @@ using System.IO;
 using System.Xml;
 using System.Collections;
 using NUnit.Core;
-using NUnit.Util;
+//using NUnit.Util;
 
 namespace NUnit.Extras
 {
