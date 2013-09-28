@@ -7,7 +7,6 @@
 using System;
 using System.IO;
 using System.Collections;
-using NUnit.Core;
 
 namespace NUnit.Extras
 {
@@ -84,16 +83,14 @@ namespace NUnit.Extras
 			this.testResult = result;
 		}
 
-		public void FindFixtures( TestSuiteResult result )
+		public void FindFixtures( TestResult result )
 		{
 			bool hasTestCases = false;
 			bool hasTestSuites = false;
 
 			foreach( TestResult childResult in result.Results )
 			{
-                TestSuiteResult childSuite = childResult as TestSuiteResult;
-
-				if ( childSuite == null || IsParameterizedTestMethod(childSuite) )
+				if ( childResult.IsTestCase || IsParameterizedTestMethod(childResult) )
 					hasTestCases = true;
 				else
 					hasTestSuites = true;
@@ -103,15 +100,15 @@ namespace NUnit.Extras
 				Children.Add( new TestResultAnalyzer( result ) );
 			else if ( hasTestSuites )
 				foreach( TestResult childResult in result.Results )
-					if ( childResult is TestSuiteResult )
-						FindFixtures( (TestSuiteResult)childResult );
+					if ( childResult.IsSuite )
+						FindFixtures(childResult );
            
 		}
 
-        private bool IsParameterizedTestMethod(TestSuiteResult result)
+        private bool IsParameterizedTestMethod(TestResult result)
         {
             foreach (TestResult child in result.Results)
-                if ( child is TestCaseResult && child.Name.EndsWith(")") )
+                if ( child.IsTestCase && child.Name.EndsWith(")") )
                     return true;
 
             return false;
@@ -145,11 +142,9 @@ namespace NUnit.Extras
 
 		private void SummarizeTestResults( TestResult result )
 		{
-			TestCaseResult testCaseResult = result as TestCaseResult;
-			
-			if ( testCaseResult != null )
+			if ( result.IsTestCase )
 			{
-				testCaseResults.Add( testCaseResult );
+				testCaseResults.Add( result );
 			
 				++this.testCount;
 
@@ -164,9 +159,8 @@ namespace NUnit.Extras
 			}
 			else
 			{
-				TestSuiteResult testSuiteResult = result as TestSuiteResult;
-				if ( testSuiteResult != null )
-					foreach( TestResult childResult in testSuiteResult.Results )
+				if ( result.IsSuite )
+					foreach( TestResult childResult in result.Results )
 						SummarizeTestResults( childResult );
 			}
 		}

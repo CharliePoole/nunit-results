@@ -6,7 +6,6 @@
 
 using System;
 using System.IO;
-using NUnit.Core;
 
 namespace NUnit.Extras
 {

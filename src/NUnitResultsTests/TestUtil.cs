@@ -5,7 +5,6 @@
 // *****************************************************
 
 using System;
-using NUnit.Core;
 
 namespace NUnit.Extras.Tests
 {
@@ -13,30 +12,28 @@ namespace NUnit.Extras.Tests
     {
         public static int CountTestCases(TestResult result)
         {
-            TestSuiteResult suiteResult = result as TestSuiteResult;
-
-            if (suiteResult == null)
+            if (result.IsTestCase)
                 return 1;
 
             int sum = 0;
-            foreach (TestResult child in suiteResult.Results)
+            foreach (TestResult child in result.Results)
                 sum += CountTestCases(child);
             return sum;
         }
 
-        public static int CountTestFixtures(TestSuiteResult result)
+        public static int CountTestFixtures(TestResult result)
         {
             if (IsFixture(result))
                 return 1;
 
             int sum = 0;
             foreach (TestResult child in result.Results)
-                sum += CountTestFixtures((TestSuiteResult)child);
+                sum += CountTestFixtures(child);
 
             return sum;
         }
 
-        public static bool IsFixture(TestSuiteResult result)
+        public static bool IsFixture(TestResult result)
         {
             if (result.Results.Count == 0)
                 return true; // Empty suite can only be a fixture
@@ -45,26 +42,25 @@ namespace NUnit.Extras.Tests
 
             foreach (TestResult child in result.Results)
             {
-                TestSuiteResult childSuite = child as TestSuiteResult;
-                if (childSuite == null)
+                if (child.IsTestCase)
                     hasTestCases = true;
-                else if (IsParameterizedTestMethod(childSuite))
+                else if (IsParameterizedTestMethod(child))
                     return true;
             }
                 
             return hasTestCases;
         }
 
-        public static bool IsParameterizedTestMethod(TestSuiteResult result)
+        public static bool IsParameterizedTestMethod(TestResult result)
         {
             foreach(TestResult child in result.Results)
-                if ( child is TestCaseResult && child.Name.EndsWith(")"))
+                if ( child.IsTestCase && child.Name.EndsWith(")"))
                     return true;
 
             return false;
         }
 
-        public static TestResult FindChildResult(TestSuiteResult result, string name)
+        public static TestResult FindChildResult(TestResult result, string name)
         {
             foreach (TestResult child in result.Results)
                 if (child.Name == name) return child;

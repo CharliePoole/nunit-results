@@ -10,7 +10,6 @@ using System.Web;
 using System.Text;
 using System.Collections;
 using System.Xml.Serialization;
-using NUnit.Core;
 
 namespace NUnit.Extras
 {
@@ -88,7 +87,7 @@ namespace NUnit.Extras
 			failureCount = 0;
 			
 
-			foreach( TestSuiteResult suiteResult in resultLoader.ProjectResults )
+			foreach( TestResult suiteResult in resultLoader.ProjectResults )
 			{
 				string projectName = Path.GetFileNameWithoutExtension( suiteResult.Name );
 				Console.WriteLine( "Analyzing {0}", projectName );
@@ -219,7 +218,7 @@ namespace NUnit.Extras
 			page.EndRow();
 			
 			int count = 0;
-			foreach( TestCaseResult result in analyzer.TestCaseResults )
+			foreach( TestResult result in analyzer.TestCaseResults )
 			{
 				if ( result.IsFailure )
 				{
@@ -252,7 +251,7 @@ namespace NUnit.Extras
 			page.EndRow();
 
 			int count = 0;
-			foreach( TestCaseResult result in analyzer.TestCaseResults )
+			foreach( TestResult result in analyzer.TestCaseResults )
 			{
 				if ( !result.Executed )
 				{

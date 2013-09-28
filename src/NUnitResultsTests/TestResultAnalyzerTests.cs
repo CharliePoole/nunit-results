@@ -5,7 +5,6 @@
 // *****************************************************
 
 using System;
-using NUnit.Core;
 using NUnit.Framework;
 
 namespace NUnit.Extras.Tests
@@ -66,7 +65,7 @@ namespace NUnit.Extras.Tests
             TestResultAnalyzer topLevel = new TestResultAnalyzer("Top Level");
 
             int fixtureCount = 0;
-            foreach (TestSuiteResult result in loader.ProjectResults)
+            foreach (TestResult result in loader.ProjectResults)
             {
                 TestResultAnalyzer analyzer = new TestResultAnalyzer(result);
                 analyzer.FindFixtures(result);
@@ -89,7 +88,7 @@ namespace NUnit.Extras.Tests
         {
             foreach (ProjectInfo project in Projects)
             {
-                TestSuiteResult result = (TestSuiteResult)loader.FindProjectResult(project.Name);
+                TestResult result = loader.FindProjectResult(project.Name);
                 TestResultAnalyzer analyzer = new TestResultAnalyzer(result);
 
                 analyzer.FindFixtures(result);

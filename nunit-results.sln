@@ -10,13 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TestResult-2.5.2.xml = TestResult-2.5.2.xml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nunit-2.2.10", "nunit-2.2.10", "{0D2E53C8-7291-4751-A5B0-243C8509DDAA}"
-	ProjectSection(SolutionItems) = preProject
-		nunit-2.2.10\nunit.core.dll = nunit-2.2.10\nunit.core.dll
-		nunit-2.2.10\nunit.framework.dll = nunit-2.2.10\nunit.framework.dll
-		nunit-2.2.10\nunit.util.dll = nunit-2.2.10\nunit.util.dll
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nunit-results", "src\NUnitResults\nunit-results.csproj", "{C9E758A6-82AF-488B-AA99-CA2916D0E482}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nunit-results.tests", "src\NUnitResultsTests\nunit-results.tests.csproj", "{FED2549E-DE13-498B-A569-51AA33D0B654}"

@@ -7,7 +7,6 @@
 using System;
 using System.Collections;
 using NUnit.Framework;
-using NUnit.Core;
 
 namespace NUnit.Extras.Tests
 {
@@ -44,18 +43,18 @@ namespace NUnit.Extras.Tests
         [Test]
         public void CanLoadFromFile()
         {
-            TestSuiteResult result = loader.TopLevelResult;
+            TestResult result = loader.TopLevelResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(ResultFile, result.Name);
 
             Assert.AreEqual(1, result.Results.Count);
-            result = (TestSuiteResult)result.Results[0];
+            result = result.Results[0];
             StringAssert.EndsWith("NUnitTests.nunit", result.Name);
             Assert.AreEqual(Projects.Length, result.Results.Count);
 
             for (int i = 0; i < Projects.Length; i++)
             {
-                TestSuiteResult projectResult = (TestSuiteResult)result.Results[i];
+                TestResult projectResult = result.Results[i];
                 StringAssert.EndsWith(Projects[i].Name + ".dll", projectResult.Name);
                 Assert.AreEqual(Projects[i].TestCount, TestUtil.CountTestCases(projectResult), projectResult.Name);
                 Assert.AreEqual(Projects[i].FixtureCount, TestUtil.CountTestFixtures(projectResult), projectResult.Name);
@@ -72,12 +71,12 @@ namespace NUnit.Extras.Tests
             string[] path = parts[0].Split(new char[] { '.' });
             string project = parts[1];
 
-            TestSuiteResult result = loader.FindProjectResult(project);
+            TestResult result = loader.FindProjectResult(project);
             Assert.IsNotNull(result);
 
             foreach (string name in path)
             {
-                result = (TestSuiteResult)TestUtil.FindChildResult(result, name);
+                result = TestUtil.FindChildResult(result, name);
                 Assert.IsNotNull(result);
             }
         }

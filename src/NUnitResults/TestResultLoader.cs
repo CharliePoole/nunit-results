@@ -8,8 +8,6 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Collections;
-using NUnit.Core;
-//using NUnit.Util;
 
 namespace NUnit.Extras
 {
@@ -20,15 +18,13 @@ namespace NUnit.Extras
     {
         #region Private Fields
 
-        private int assemblyKey = -1;
-
-        private TestSuiteResult topLevelResult;
+        private TestResult topLevelResult;
 
         #endregion
 
         #region Properties
 
-        public TestSuiteResult TopLevelResult
+        public TestResult TopLevelResult
         {
             get { return topLevelResult; }
         }
@@ -46,74 +42,6 @@ namespace NUnit.Extras
 
         #endregion
 
-        private class DummyTestCase : Test
-        {
-            public DummyTestCase(string testName, int assemblyKey)
-                : base(testName, assemblyKey) { }
-
-
-            public override bool IsFixture
-            {
-                get
-                {
-                    return false;
-                }
-            }
-
-            public override bool IsTestCase
-            {
-                get
-                {
-                    return true;
-                }
-            }
-
-            public override ArrayList Tests
-            {
-                get
-                {
-                    return null;
-                }
-            }
-
-            public override int CountTestCases()
-            {
-                return 1;
-            }
-
-            public override int CountTestCases(IFilter filter)
-            {
-                return 1;
-            }
-
-            public override bool Filter(IFilter filter)
-            {
-                return true;
-            }
-
-            public override bool IsSuite
-            {
-                get
-                {
-                    return false;
-                }
-            }
-
-            public override TestResult Run(EventListener listener)
-            {
-                return null;
-            }
-
-            public override TestResult Run(EventListener listener, IFilter filter)
-            {
-                return null;
-            }
-
-
-
-
-        }
-
         public void Load(string fileSpec)
         {
             if (Directory.Exists(fileSpec))
@@ -124,28 +52,25 @@ namespace NUnit.Extras
                 topLevelResult = LoadFile(fileSpec);
         }
 
-        private TestSuiteResult LoadFile(string fileName)
+        private TestResult LoadFile(string fileName)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(fileName);
 
             XmlNode topLevelNode = doc.SelectSingleNode("/test-results");
-            //string topLevelName = GetTestName( topLevelNode );
-            TestSuite fileSuite = new TestSuite(fileName);
-            TestSuiteResult fileResult = new TestSuiteResult(fileSuite, fileName);
+            //TestResult fileResult = new TestResult(fileName, true);
 
             XmlNode suiteNode = topLevelNode.SelectSingleNode("test-suite");
-            TestSuiteResult suiteResult = LoadSuite(suiteNode);
+            TestResult suiteResult = new TestResult(suiteNode);
 
-            fileResult.Results.Add(suiteResult);
+            //fileResult.Results.Add(suiteResult);
 
-            return fileResult;
+            return suiteResult;
         }
 
-        private TestSuiteResult LoadFiles(string pattern)
+        private TestResult LoadFiles(string pattern)
         {
-            TestSuite topLevelSuite = new TestSuite(pattern);
-            TestSuiteResult topLevelResult = new TestSuiteResult(topLevelSuite, pattern);
+            TestResult topLevelResult = new TestResult(pattern, true);
 
             string dir = Path.GetDirectoryName(pattern);
             string pat = Path.GetFileName(pattern);
@@ -158,7 +83,7 @@ namespace NUnit.Extras
             return topLevelResult;
         }
 
-        public TestSuiteResult FindProjectResult(string name)
+        public TestResult FindProjectResult(string name)
         {
             return FindProjectResult(name, topLevelResult);
         }
@@ -175,26 +100,24 @@ namespace NUnit.Extras
 
         private static void AccumulateProjects(ArrayList list, TestResult testResult)
         {
-            TestSuiteResult suiteResult = testResult as TestSuiteResult;
-            if (suiteResult == null) return;
+            if (!testResult.IsSuite) return;
 
-            string resultName = suiteResult.Name.ToLower();
+            string resultName = testResult.Name.ToLower();
             string extension = Path.GetExtension(resultName);
 
             switch (extension)
             {
                 case ".dll":
                 case ".exe":
-                    list.Add(suiteResult);
+                    list.Add(testResult);
                     break;
                 case "":
                     break;
                 default:
-                    foreach (TestResult childResult in suiteResult.Results)
+                    foreach (TestResult childResult in testResult.Results)
                     {
-                        TestSuiteResult childSuiteResult = childResult as TestSuiteResult;
-                        if (childSuiteResult != null)
-                            AccumulateProjects(list, childSuiteResult);
+                        if (childResult.IsSuite)
+                            AccumulateProjects(list, childResult);
                     }
                     break;
             }
@@ -208,14 +131,13 @@ namespace NUnit.Extras
             return FindTestResult(className, projectResult);
         }
 
-        private static TestSuiteResult FindProjectResult(string name, TestResult testResult)
+        private static TestResult FindProjectResult(string name, TestResult testResult)
         {
             if (testResult == null) return null;
 
-            TestSuiteResult suiteResult = testResult as TestSuiteResult;
-            if (suiteResult == null) return null;
+            if (!testResult.IsSuite) return null;
 
-            string resultName = suiteResult.Name.ToLower();
+            string resultName = testResult.Name.ToLower();
             string extension = Path.GetExtension(resultName);
 
             switch (extension)
@@ -223,17 +145,16 @@ namespace NUnit.Extras
                 case ".dll":
                 case ".exe":
                     if (name.ToLower() == Path.GetFileNameWithoutExtension(resultName))
-                        return suiteResult;
+                        return testResult;
                     break;
                 case "":
                     break;
                 default:
-                    foreach (TestResult childResult in suiteResult.Results)
+                    foreach (TestResult childResult in testResult.Results)
                     {
-                        TestSuiteResult childSuiteResult = childResult as TestSuiteResult;
-                        if (childSuiteResult != null)
+                        if (childResult.IsSuite)
                         {
-                            TestSuiteResult result = FindProjectResult(name, childSuiteResult);
+                            TestResult result = FindProjectResult(name, childResult);
                             if (result != null)
                                 return result;
                         }
@@ -250,128 +171,14 @@ namespace NUnit.Extras
 
             if (result.Name.ToLower() == name.ToLower()) return result;
 
-            TestSuiteResult testSuiteResult = result as TestSuiteResult;
-            if (testSuiteResult != null)
-                foreach (TestResult childResult in testSuiteResult.Results)
+            if (result.IsSuite)
+                foreach (TestResult childResult in result.Results)
                 {
                     TestResult tempResult = FindTestResult(name, childResult);
                     if (tempResult != null) return tempResult;
                 }
 
             return null;
-        }
-
-        private TestSuiteResult LoadSuite(XmlNode xmlNode)
-        {
-            string suiteName = GetTestName(xmlNode);
-
-            if (suiteName.EndsWith(".dll") || suiteName.EndsWith(".exe"))
-                ++assemblyKey;
-
-            TestSuite suite = new TestSuite(suiteName, assemblyKey);
-            TestSuiteResult result = new TestSuiteResult(suite, suiteName);
-
-            result.Executed = true;
-
-            XmlNode resultsNode = xmlNode.SelectSingleNode("results");
-
-            if (resultsNode != null)
-            {
-                foreach (XmlNode childNode in resultsNode.ChildNodes)
-                {
-                    switch (childNode.Name)
-                    {
-                        case "test-suite":
-                            TestSuiteResult childResult = LoadSuite(childNode);
-                            if (childResult.Name != result.Name)
-                                result.Results.Add(childResult);
-                            else
-                                foreach (TestResult grandChildResult in childResult.Results)
-                                    result.Results.Add(grandChildResult);
-                            break;
-                        case "test-case":
-                            TestCaseResult testCaseResult = LoadTestCase(suiteName, childNode);
-                            result.Results.Add(testCaseResult);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-
-            //result.IsSuccess = GetSuccess( xmlNode );
-            result.Time = GetTime(xmlNode);
-
-            return result;
-        }
-
-        private TestCaseResult LoadTestCase(string suiteName, XmlNode xmlNode)
-        {
-            string testName = GetTestName(xmlNode);
-            UITestNode testCase = new UITestNode(new DummyTestCase(testName, assemblyKey));
-
-            TestCaseResult result = new TestCaseResult(testCase);
-            if (GetExecuted(xmlNode))
-            {
-                if (GetSuccess(xmlNode))
-                    result.Success();
-                else
-                {
-                    XmlNode messageNode = xmlNode.SelectSingleNode("failure/message");
-                    string message = messageNode != null ? messageNode.InnerText : string.Empty;
-
-                    XmlNode stackTraceNode = xmlNode.SelectSingleNode("failure/stack-trace");
-                    string stackTrace = stackTraceNode != null ? stackTraceNode.InnerText : string.Empty;
-
-                    result.Failure(message, stackTrace);
-                }
-            }
-            else
-            {
-                XmlNode reasonNode = xmlNode.SelectSingleNode("reason/message");
-                if (reasonNode != null)
-                {
-                    string reason = reasonNode.InnerText;
-                    result.NotRun(reason);
-                }
-            }
-
-            result.Time = GetTime(xmlNode);
-
-            return result;
-        }
-
-        private object GetAttribute(XmlNode node, string name)
-        {
-            XmlNode attr = node.Attributes[name];
-            return attr != null ? attr.Value : null;
-        }
-
-        private bool GetBoolean(XmlNode node, string name)
-        {
-            string trueFalse = GetAttribute(node, name) as string;
-            return trueFalse != null ? bool.Parse(trueFalse) : false;
-        }
-
-        private string GetTestName(XmlNode node)
-        {
-            return GetAttribute(node, "name") as string;
-        }
-
-        private bool GetExecuted(XmlNode node)
-        {
-            return GetBoolean(node, "executed");
-        }
-
-        private bool GetSuccess(XmlNode node)
-        {
-            return GetBoolean(node, "success");
-        }
-
-        private double GetTime(XmlNode node)
-        {
-            string doubleString = GetAttribute(node, "time") as string;
-            return doubleString != null ? double.Parse(doubleString) : 0.0;
         }
     }
 }
