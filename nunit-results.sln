@@ -4,10 +4,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		CHANGES.txt = CHANGES.txt
 		LICENSE.txt = LICENSE.txt
+		mock-assembly-2.6.2.xml = mock-assembly-2.6.2.xml
 		README.txt = README.txt
 		TestResult-2.2.10.xml = TestResult-2.2.10.xml
 		TestResult-2.4.8.xml = TestResult-2.4.8.xml
+		TestResult-2.5.10.xml = TestResult-2.5.10.xml
 		TestResult-2.5.2.xml = TestResult-2.5.2.xml
+		TestResult-2.6.0.xml = TestResult-2.6.0.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nunit-results", "src\NUnitResults\nunit-results.csproj", "{C9E758A6-82AF-488B-AA99-CA2916D0E482}"

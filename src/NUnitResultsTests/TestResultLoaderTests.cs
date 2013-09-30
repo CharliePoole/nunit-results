@@ -13,7 +13,7 @@ namespace NUnit.Extras.Tests
     public abstract class TestResultLoaderTest
     {
         protected string ResultFile;
-
+        protected string ProjectFile;
         protected ProjectInfo[] Projects;
         protected int FixtureCount;
         protected int TestCount;
@@ -26,6 +26,7 @@ namespace NUnit.Extras.Tests
             ExpectedTestData data = GetExpectedTestData();
 
             this.ResultFile = data.ResultFile;
+            this.ProjectFile = data.ProjectFile;
             this.Projects = data.Projects;
             this.FixtureCount = data.FixtureCount;
             this.TestCount = data.TestCount;
@@ -45,11 +46,11 @@ namespace NUnit.Extras.Tests
         {
             TestResult result = loader.TopLevelResult;
             Assert.IsNotNull(result);
-            Assert.AreEqual(ResultFile, result.Name);
+            Assert.AreEqual(ProjectFile, result.Name);
 
-            Assert.AreEqual(1, result.Results.Count);
-            result = result.Results[0];
-            StringAssert.EndsWith("NUnitTests.nunit", result.Name);
+            //Assert.AreEqual(1, result.Results.Count);
+            //result = result.Results[0];
+            //StringAssert.EndsWith("NUnitTests.nunit", result.Name);
             Assert.AreEqual(Projects.Length, result.Results.Count);
 
             for (int i = 0; i < Projects.Length; i++)
@@ -147,6 +148,24 @@ namespace NUnit.Extras.Tests
         protected override ExpectedTestData GetExpectedTestData()
         {
             return ExpectedTestData.NUnit_2_5_2;
+        }
+    }
+
+    [TestFixture]
+    public class TestResultLoaderTest_2_5_10 : TestResultLoaderTest
+    {
+        protected override ExpectedTestData GetExpectedTestData()
+        {
+            return ExpectedTestData.NUnit_2_5_10;
+        }
+    }
+
+    [TestFixture]
+    public class TestResultLoaderTest_2_6_0 : TestResultLoaderTest
+    {
+        protected override ExpectedTestData GetExpectedTestData()
+        {
+            return ExpectedTestData.NUnit_2_6_0;
         }
     }
 }

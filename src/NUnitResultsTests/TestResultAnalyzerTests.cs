@@ -20,6 +20,7 @@ namespace NUnit.Extras.Tests
         protected int TestCount;
         protected int FailureCount;
         protected int NotRunCount;
+        protected int InconclusiveCount;
 
         protected TestResultLoader loader;
 
@@ -34,6 +35,7 @@ namespace NUnit.Extras.Tests
             this.TestCount = data.TestCount;
             this.FailureCount = data.FailureCount;
             this.NotRunCount = data.NotRunCount;
+            this.InconclusiveCount = data.InconclusiveCount;
         }
 
         [TestFixtureSetUp]
@@ -57,6 +59,7 @@ namespace NUnit.Extras.Tests
             Assert.AreEqual(this.TestCount, analyzer.TestCount);
             Assert.AreEqual(this.FailureCount, analyzer.FailureCount);
             Assert.AreEqual(this.NotRunCount, analyzer.NotRunCount);
+            Assert.AreEqual(this.InconclusiveCount, analyzer.InconclusiveCount);
         }
 
         [Test]
@@ -81,6 +84,7 @@ namespace NUnit.Extras.Tests
             Assert.AreEqual(TestCount, topLevel.TestCount);
             Assert.AreEqual(FailureCount, topLevel.FailureCount);
             Assert.AreEqual(NotRunCount, topLevel.NotRunCount);
+            Assert.AreEqual(InconclusiveCount, topLevel.InconclusiveCount);
         }
 
         [Test]
@@ -99,12 +103,13 @@ namespace NUnit.Extras.Tests
                 Assert.AreEqual(project.TestCount, analyzer.TestCount, project.Name);
                 Assert.AreEqual(project.FailureCount, analyzer.FailureCount, project.Name);
                 Assert.AreEqual(project.NotRunCount, analyzer.NotRunCount, project.Name);
+                Assert.AreEqual(project.InconclusiveCount, analyzer.InconclusiveCount, project.Name);
             }
         }
     }
 
     [TestFixture]
-    public class TestResultAnalyzerTest_2_2_10 : TestResultAnalyzerTest
+    public class TestResultAnalyzerTest_NUnit_2_2_10 : TestResultAnalyzerTest
     {
         protected override ExpectedTestData GetExpectedTestData()
         {
@@ -113,7 +118,7 @@ namespace NUnit.Extras.Tests
     }
 
     [TestFixture]
-    public class TestResultAnalyzerTest_2_4_8 : TestResultAnalyzerTest
+    public class TestResultAnalyzerTest_NUnit_2_4_8 : TestResultAnalyzerTest
     {
         protected override ExpectedTestData GetExpectedTestData()
         {
@@ -122,11 +127,47 @@ namespace NUnit.Extras.Tests
     }
 
     [TestFixture]
-    public class TestResultAnalyzerTest_2_5_2 : TestResultAnalyzerTest
+    public class TestResultAnalyzerTest_NUnit_2_5_2 : TestResultAnalyzerTest
     {
         protected override ExpectedTestData GetExpectedTestData()
         {
             return ExpectedTestData.NUnit_2_5_2;
+        }
+    }
+
+    [TestFixture]
+    public class TestResultAnalyzerTest_NUnit_2_5_10 : TestResultAnalyzerTest
+    {
+        protected override ExpectedTestData GetExpectedTestData()
+        {
+            return ExpectedTestData.NUnit_2_5_10;
+        }
+    }
+
+    [TestFixture]
+    public class TestResultAnalyzerTest_NUnit_2_6_0 : TestResultAnalyzerTest
+    {
+        protected override ExpectedTestData GetExpectedTestData()
+        {
+            return ExpectedTestData.NUnit_2_6_0;
+        }
+    }
+
+    [TestFixture]
+    public class TestResultAnalyzerTest_NUnit_2_6_2 : TestResultAnalyzerTest
+    {
+        protected override ExpectedTestData GetExpectedTestData()
+        {
+            return ExpectedTestData.NUnit_2_6_2;
+        }
+    }
+
+    [TestFixture]
+    public class TestResultAnalyzerTest_MockAssembly_2_6_2 : TestResultAnalyzerTest
+    {
+        protected override ExpectedTestData GetExpectedTestData()
+        {
+            return ExpectedTestData.NUnit_2_6_2;
         }
     }
 }

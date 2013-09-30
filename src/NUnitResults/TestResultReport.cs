@@ -220,7 +220,7 @@ namespace NUnit.Extras
 			int count = 0;
 			foreach( TestResult result in analyzer.TestCaseResults )
 			{
-				if ( result.IsFailure )
+				if ( result.ResultState.Status == TestStatus.Failed )
 				{
 					page.BeginRow();
 					page.WriteCell( ++count );
@@ -253,7 +253,7 @@ namespace NUnit.Extras
 			int count = 0;
 			foreach( TestResult result in analyzer.TestCaseResults )
 			{
-				if ( !result.Executed )
+				if ( result.ResultState.Status == TestStatus.Skipped )
 				{
 					page.BeginRow();
 					page.WriteCell( ++count );

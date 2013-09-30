@@ -118,6 +118,7 @@
     <Compile Include="HtmlPage.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ResultState.cs" />
     <Compile Include="Startup.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -131,6 +132,7 @@
     <Compile Include="TestResultReport.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TestStatus.cs" />
     <Content Include="App.ico" />
   </ItemGroup>
   <ItemGroup>

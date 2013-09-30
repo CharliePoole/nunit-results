@@ -39,6 +39,26 @@ namespace NUnit.Extras
     /// </summary>
     public class TestResult
     {
+        #region ResultState Translation
+
+        private static Dictionary<string, ResultState> resultStates = new Dictionary<string,ResultState>();
+
+        static TestResult()
+        {
+            resultStates["Success"] = ResultState.Success; // NUnit 2.5.4 - 2.6.2
+            resultStates["Passed"] = ResultState.Success;  // NUnit 3.0
+            resultStates["Failure"] = ResultState.Failure; // NUnit 2.5.4 - 2.6.2
+            resultStates["Failed"] = ResultState.Failure;  // NUnit 3.0
+            resultStates["Failed:Error"] = ResultState.Error;
+            resultStates["Failed:Cancelled"] = ResultState.Cancelled;
+            resultStates["Inconclusive"] = ResultState.Inconclusive;
+            resultStates["Skipped"] = ResultState.Skipped;
+            resultStates["Skipped:Ignored"] = ResultState.Ignored;
+            resultStates["Skipped:Invalid"] = ResultState.NotRunnable;
+        }
+
+        #endregion
+
         #region Constructors
 
         public TestResult(string name, bool isSuite)
@@ -74,32 +94,40 @@ namespace NUnit.Extras
             }
 
             // Common processing for test-case and test-suite
-            this.Executed = GetBoolean(thisNode, "executed");
+            var result = GetAttribute(thisNode, "result");
+            if (result != null) // NUnit 2.5.4 and later
+            {
+                if (!resultStates.ContainsKey(result))
+                    throw new System.InvalidOperationException("Result file contains invalid result value: " + result);
+                ResultState = resultStates[result];
+            }
+            else // Earlier than 2.5.4
+            {
+                ResultState = GetBoolean(thisNode, "executed")
+                    ? GetBoolean(thisNode, "success")
+                        ? ResultState.Success
+                        : ResultState.Failure
+                    : ResultState.Skipped;
+            }
+
             this.Time = GetDouble(thisNode, "time");
 
-            if (Executed)
+            switch (ResultState.Status)
             {
-                if (GetBoolean(thisNode, "success"))
-                    this.Success();
-                else
-                {
+                case TestStatus.Failed:
                     XmlNode messageNode = thisNode.SelectSingleNode("failure/message");
-                    string message = messageNode != null ? messageNode.InnerText : string.Empty;
+                    this.Message = messageNode != null ? messageNode.InnerText : string.Empty;
 
                     XmlNode stackTraceNode = thisNode.SelectSingleNode("failure/stack-trace");
-                    string stackTrace = stackTraceNode != null ? stackTraceNode.InnerText : string.Empty;
+                    this.StackTrace = stackTraceNode != null ? stackTraceNode.InnerText : string.Empty;
 
-                    this.Failure(message, stackTrace);
-                }
-            }
-            else
-            {
-                XmlNode reasonNode = thisNode.SelectSingleNode("reason/message");
-                if (reasonNode != null)
-                {
-                    string reason = reasonNode.InnerText;
-                    this.NotRun(reason);
-                }
+                    break;
+
+                case TestStatus.Skipped:
+                    XmlNode reasonNode = thisNode.SelectSingleNode("reason/message");
+                    if (reasonNode != null)
+                        this.Message = reasonNode.InnerText;
+                    break;
             }
 
             if (IsSuite)
@@ -116,17 +144,13 @@ namespace NUnit.Extras
 
         #region Properties
 
-        public bool Executed { get; set; }
+        public ResultState ResultState { get; private set; }
 
         public virtual string Name { get; private set; }
-
-        public virtual bool IsSuccess { get { return !IsFailure; } }
 
         public bool IsSuite { get; private set; }
 
         public bool IsTestCase { get { return !IsSuite; } }
-
-        public virtual bool IsFailure { get; set; }
 
         public virtual string Description { get; private set; }
 
@@ -139,54 +163,6 @@ namespace NUnit.Extras
         public int AssertCount { get; private set; }
 
         public List<TestResult> Results { get; private set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Mark the test as running successfully
-        /// </summary>
-        public void Success()
-        {
-            Executed = true;
-            IsFailure = false;
-        }
-
-        /// <summary>
-        /// Mark the test as not run.
-        /// </summary>
-        /// <param name="reason">The reason the test was not run</param>
-        public void NotRun(string reason)
-        {
-            NotRun(reason, null);
-        }
-
-        /// <summary>
-        /// Mark the test as not run.
-        /// </summary>
-        /// <param name="reason">The reason the test was not run</param>
-        /// <param name="stackTrace">Stack trace giving the location of the command</param>
-        public void NotRun(string reason, string stackTrace)
-        {
-            this.Executed = false;
-            this.Message = reason;
-            this.StackTrace = stackTrace;
-        }
-
-        /// <summary>
-        /// Mark the test as a failure due to an
-        /// assertion having failed.
-        /// </summary>
-        /// <param name="message">Message to display</param>
-        /// <param name="stackTrace">Stack trace giving the location of the failure</param>
-        public void Failure(string message, string stackTrace)
-        {
-            this.Executed = true;
-            this.IsFailure = true;
-            this.Message = message;
-            this.StackTrace = stackTrace;
-        }
 
         #endregion
 

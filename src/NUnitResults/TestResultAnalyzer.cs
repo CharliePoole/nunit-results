@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace NUnit.Extras
 {
@@ -17,58 +17,15 @@ namespace NUnit.Extras
 	/// </summary>
 	public class TestResultAnalyzer : Analyzer
 	{
-		#region Fields
-
-		/// <summary>
-		/// The test result we are analyzing
-		/// </summary>
-		protected TestResult testResult;
-
-		/// <summary>
-		/// The number of test cases represented by the result
-		/// </summary>
-		protected int testCount;
-
-		/// <summary>
-		/// The number of test cases not run
-		/// </summary>
-		protected int notRunCount;
-
-		/// <summary>
-		/// The number of test failures
-		/// </summary>
-		protected int failureCount;
-
-		protected ArrayList testCaseResults = new ArrayList();
-
-		#endregion
-
 		#region Properties
 
-		public TestResult TestResult
-		{
-			get { return testResult; }
-		}
-
-		public IList TestCaseResults
-		{
-			get { return testCaseResults; }
-		}
-
-		public int TestCount
-		{
-			get { return testCount; }
-		}
-
-		public int NotRunCount
-		{
-			get { return notRunCount; }
-		}
-
-		public int FailureCount
-		{
-			get { return failureCount; }
-		}
+		public TestResult TestResult { get; private set; }
+        private List<TestResult> testCaseResults = new List<TestResult>();
+        public IList<TestResult> TestCaseResults { get { return testCaseResults; } }
+		public int TestCount { get; private set; }
+        public int NotRunCount { get; private set; }
+        public int InconclusiveCount { get; private set; }
+		public int FailureCount { get; private set; }
 
 		#endregion
 
@@ -80,7 +37,7 @@ namespace NUnit.Extras
 
 		public TestResultAnalyzer( string name, TestResult result ) : base( name )
 		{
-			this.testResult = result;
+			this.TestResult = result;
 		}
 
 		public void FindFixtures( TestResult result )
@@ -125,37 +82,42 @@ namespace NUnit.Extras
 		public override void Analyze()
 		{
 			InitializeCounts();
-			testCaseResults.Clear();
+			TestCaseResults.Clear();
 
-			if ( testResult != null )
-				SummarizeTestResults( testResult );
+			if ( TestResult != null )
+				SummarizeTestResults( TestResult );
 			else
 				SummarizeChildren();
 		}
 
 		public override void InitializeCounts()
 		{
-			this.testCount = 0;
-			this.notRunCount = 0;
-			this.failureCount = 0;
+			this.TestCount = 0;
+			this.NotRunCount = 0;
+			this.FailureCount = 0;
+            this.InconclusiveCount = 0;
 		}
 
 		private void SummarizeTestResults( TestResult result )
 		{
 			if ( result.IsTestCase )
 			{
-				testCaseResults.Add( result );
+				TestCaseResults.Add( result );
 			
-				++this.testCount;
+				++this.TestCount;
 
-				if ( !result.Executed ) 
-				{
-					++this.notRunCount;
-				}
-				else if ( result.IsFailure ) 
-				{
-					++this.failureCount;
-				}
+                switch (result.ResultState.Status)
+                {
+                    case TestStatus.Skipped:
+    					++this.NotRunCount;
+                        break;
+                    case TestStatus.Failed:
+                        ++this.FailureCount;
+                        break;
+                    case TestStatus.Inconclusive:
+                        ++this.InconclusiveCount;
+                        break;
+                }
 			}
 			else
 			{
@@ -171,11 +133,13 @@ namespace NUnit.Extras
 			{
 				child.Analyze();
 
-				this.testCount += child.TestCount;
-				this.notRunCount += child.NotRunCount;
-				this.failureCount += child.FailureCount;
+				this.TestCount += child.TestCount;
+				this.NotRunCount += child.NotRunCount;
+				this.FailureCount += child.FailureCount;
+                this.InconclusiveCount += child.InconclusiveCount;
 
-				testCaseResults.AddRange( child.TestCaseResults );
+                foreach (TestResult result in child.TestCaseResults)
+				    TestCaseResults.Add( result );
 			}
 		}
 
